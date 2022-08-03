@@ -1,0 +1,1 @@
+may need to edit the block design \*.tcl to provide the correct path for the all_codes.txt for both the encoder and decoder. This is still a work in progress.
