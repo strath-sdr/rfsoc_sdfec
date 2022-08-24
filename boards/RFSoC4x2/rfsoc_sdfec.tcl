@@ -1284,7 +1284,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net M00_ACLK_1 [get_bd_pins axi_interconnect_hpm0/ACLK] [get_bd_pins axi_interconnect_hpm0/S00_ACLK] [get_bd_pins axi_interconnect_ps_slave/ACLK] [get_bd_pins axi_interconnect_ps_slave/M00_ACLK] [get_bd_pins rst_pl_clk0/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins zynq_ultra_ps_e_0/saxihp2_fpd_aclk]
   connect_bd_net -net axi_intc_0_irq [get_bd_pins axi_intc_0/irq] [get_bd_pins zynq_ultra_ps_e_0/pl_ps_irq0]
   connect_bd_net -net clk_wiz_0_clk_667M [get_bd_pins clk_wiz_0/clk_out1] [get_bd_pins ldpc_decoder/clk_667M] [get_bd_pins ldpc_encoder/clk_667M]
-  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins axi_intc_0/s_axi_aclk] [get_bd_pins axi_interconnect_hpm0/M00_ACLK] [get_bd_pins axi_interconnect_hpm0/M01_ACLK] [get_bd_pins axi_interconnect_hpm0/M02_ACLK] [get_bd_pins axi_interconnect_ps_slave/S00_ACLK] [get_bd_pins axi_interconnect_ps_slave/S01_ACLK] [get_bd_pins clk_wiz_0/clk_500M] [get_bd_pins ldpc_decoder/clk_50M] [get_bd_pins ldpc_encoder/clk_50M] [get_bd_pins rst_clk_wiz_50M/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins axi_intc_0/s_axi_aclk] [get_bd_pins axi_interconnect_hpm0/M00_ACLK] [get_bd_pins axi_interconnect_hpm0/M01_ACLK] [get_bd_pins axi_interconnect_hpm0/M02_ACLK] [get_bd_pins axi_interconnect_ps_slave/S00_ACLK] [get_bd_pins axi_interconnect_ps_slave/S01_ACLK] [get_bd_pins clk_wiz_0/clk_out2] [get_bd_pins ldpc_decoder/clk_50M] [get_bd_pins ldpc_encoder/clk_50M] [get_bd_pins rst_clk_wiz_50M/slowest_sync_clk]
   connect_bd_net -net clk_wiz_0_locked [get_bd_pins clk_wiz_0/locked] [get_bd_pins rst_clk_wiz_50M/dcm_locked]
   connect_bd_net -net interconnect_reset_1 [get_bd_pins ldpc_decoder/interconnect_reset] [get_bd_pins ldpc_encoder/interconnect_reset] [get_bd_pins rst_clk_wiz_50M/interconnect_aresetn]
   connect_bd_net -net ldpc_decoder_dout [get_bd_pins ldpc_decoder/intr] [get_bd_pins xlconcat_intr/In1]
@@ -1313,21 +1313,21 @@ proc create_root_design { parentCell } {
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_data/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_LOW] -force
 
   # Exclude Address Segments
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_ctrl/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_ctrl/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_ctrl/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_ctrl/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_ctrl/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_ctrl/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_data/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_data/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_data/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_data/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_data/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_decoder/axi_dma_data/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_ctrl/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_ctrl/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_ctrl/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_ctrl/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_ctrl/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_ctrl/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_data/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_data/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_data/Data_MM2S] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
-  exclude_bd_addr_seg -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_data/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
+  exclude_bd_addr_seg -offset 0x000800000000 -range 0x000100000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_data/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_DDR_HIGH]
   exclude_bd_addr_seg -offset 0xFF000000 -range 0x01000000 -target_address_space [get_bd_addr_spaces ldpc_encoder/axi_dma_data/Data_S2MM] [get_bd_addr_segs zynq_ultra_ps_e_0/SAXIGP4/HP2_LPS_OCM]
 
 
