@@ -22,13 +22,13 @@ def add_multiple_ldpc_params(fec, ldpc_params):
         if type(sc_table) != list : sc_table = [sc_table]
 
         if (sc_offset + len(sc_table)) > len(fec.LDPC_SC_TABLE):
-            print("\nNot enough space for SC table: %s. Terminating." % (code_name))
+            print("\nNot enough space for SC table: %s. Terminating.\n" % (code_name))
             break
         if (la_offset*4 + len(la_table)) > len(fec.LDPC_LA_TABLE):
-            print("\nNot enough space for LA table: %s. Terminating." % (code_name))
+            print("\nNot enough space for LA table: %s. Terminating.\n" % (code_name))
             break
         if (qc_offset*4 + len(qc_table)) > len(fec.LDPC_QC_TABLE):
-            print("\nNot enough space for QC table: %s. Terminating." % (code_name))
+            print("\nNot enough space for QC table: %s. Terminating.\n" % (code_name))
             break
 
         print("{:<10} {:<10} {:<10} {:<10} {:<10} {:<10}".format('Loaded',code_id, sc_offset, la_offset, qc_offset, code_name))
@@ -40,11 +40,7 @@ def add_multiple_ldpc_params(fec, ldpc_params):
 
     fec.CORE_AXIS_ENABLE = 63                  # Enable FEC (111111)
     
-def create_tx_buffer(fec, code_name, ldpc_params): 
-    axis_width = 32 // 8
-    num_words = 1
-    pad = axis_width // num_words
-    
+def create_tx_buffer(fec, code_name, ldpc_params):     
     code_id = ldpc_params.index(code_name)
     k = fec._code_params.ldpc[code_name]['k']
     n = fec._code_params.ldpc[code_name]['n']
@@ -54,15 +50,11 @@ def create_tx_buffer(fec, code_name, ldpc_params):
     else:
         L = int(np.ceil(k/8))
     
-    print('Created TX buffer, size ', L)
-    tx_buffer = allocate(shape=(L*pad,), dtype=np.uint8)
+    print('Created TX buffer for %s. Size: %d' % (fec._fullpath, L))
+    tx_buffer = allocate(shape=(L,), dtype=np.uint8)
     return tx_buffer
     
-def create_rx_buffer(fec, code_name, ldpc_params):
-    axis_width = 32 // 8
-    num_words = 1
-    pad = axis_width // num_words
-    
+def create_rx_buffer(fec, code_name, ldpc_params):    
     code_id = ldpc_params.index(code_name)
     k = fec._code_params.ldpc[code_name]['k']
     n = fec._code_params.ldpc[code_name]['n']
@@ -72,15 +64,15 @@ def create_rx_buffer(fec, code_name, ldpc_params):
     else:
         L = int(np.ceil(n/8))
         
-    print('Created RX buffer, size ', L)
-    rx_buffer = allocate(shape=(L*pad,), dtype=np.uint8)
+    print('Created RX buffer for %s. Size: %d' % (fec._fullpath, L))
+    rx_buffer = allocate(shape=(L,), dtype=np.uint8)
     return rx_buffer
 
 def create_ctrl_buffer():
     ctrl_buffer = allocate(shape=(1,), dtype=np.uint32)
     return ctrl_buffer
 
-def set_ctrl_reg(dma_ctrl, ctrl_buffer, ctrl_params_dict):
+def set_ctrl_reg(dma_ctrl, ctrl_buffer, ctrl_params_dict, readout=False):
     ctrl_params = {'id' : 0, 
                     'max_iterations' : 0,
                     'term_on_no_change' : 0,
@@ -101,18 +93,18 @@ def set_ctrl_reg(dma_ctrl, ctrl_buffer, ctrl_params_dict):
     reserved = '{0:07b}'.format(0)                                         # (13:7) uint7
     code = '{0:07b}'.format(ctrl_params['code'])                           # (6:0) uint7
     
-    print('\nControl\n-------')
-    print('ID: ', int(id,2))
-    print('Max Iter: ', int(max_iterations,2))
-    print('Term No Change: ', int(term_on_no_change,2))
-    print('Term Pass: ', int(term_on_pass,2))
-    print('Parity Pass: ', int(include_parity_op,2))
-    print('Hard OP: ', int(hard_op,2))
-    print('Code: ', int(code,2))
+    if readout:
+        print('\nControl\n-------')
+        print('ID: ', int(id,2))
+        print('Max Iter: ', int(max_iterations,2))
+        print('Term No Change: ', int(term_on_no_change,2))
+        print('Term Pass: ', int(term_on_pass,2))
+        print('Parity Pass: ', int(include_parity_op,2))
+        print('Hard OP: ', int(hard_op,2))
+        print('Code: ', int(code,2))
     
     ctrl = id + max_iterations + term_on_no_change + term_on_pass \
     + include_parity_op + hard_op + reserved + code
-    print('Binary: ', ctrl)
     
     ctrl_buffer[0] = (int(ctrl,2))
     
@@ -122,11 +114,25 @@ def set_ctrl_reg(dma_ctrl, ctrl_buffer, ctrl_params_dict):
 def create_status_buffer():
     status_buffer = allocate(shape=(1,), dtype=np.uint32)
     return status_buffer
+
+def set_ldpc_code(fec, code_name):
+    ldpc_params = fec.available_ldpc_params()
+    code_id = ldpc_params.index(code_name)
     
-def get_status_reg(dma_status, status_buffer):
-    dma_status.recvchannel.transfer(status_buffer)
-    dma_status.recvchannel.wait()
+    # Create buffers for encoder
+    tx_buffer = create_tx_buffer(fec, code_name, ldpc_params)
+    rx_buffer = create_rx_buffer(fec, code_name, ldpc_params)
+    ctrl_buffer = create_ctrl_buffer()
+    status_buffer = create_status_buffer()
     
+    buffers = {'tx' : tx_buffer,
+               'rx' : rx_buffer,
+               'ctrl' : ctrl_buffer,
+               'status' : status_buffer}
+    
+    return buffers
+    
+def print_status_reg(status_buffer):   
     binary = '{0:032b}'.format(status_buffer[0])
     
     id = binary[0:8]
@@ -139,27 +145,30 @@ def get_status_reg(dma_status, status_buffer):
     print('Hard Output: ', int(hard_op,2))
     print('Operation: ', int(op,2))
     print('Code Name: ', int(code,2))
-    
-def transfer_data(dma_data, tx_buffer, rx_buffer):
-    dma_data.sendchannel.transfer(tx_buffer)
+
+def transfer_data(dma_data, tx_buffer, rx_buffer, dma_status, status_buffer, status=False):
+    dma_status.recvchannel.transfer(status_buffer)
     dma_data.recvchannel.transfer(rx_buffer)
+    dma_data.sendchannel.transfer(tx_buffer)
     dma_data.sendchannel.wait()
+    dma_status.recvchannel.wait()
     dma_data.recvchannel.wait()
+    
+    if status:
+        print_status_reg(status_buffer)
     
     return rx_buffer
 
 def check_encoding(fec, tx_buffer, rx_buffer, code_name, ldpc_params):
     k = fec._code_params.ldpc[code_name]['k']
     K = int(np.ceil(k/8))
-    pad = 4
-    if not (tx_buffer[0:(K-1)*pad] == rx_buffer[0:(K-1)*pad]).all():
-        print('\nFalse: ', code_name, np.asarray(np.where(tx_buffer[0:(K-1)*pad] != rx_buffer[0:(K-1)*pad]))/pad)
-    else:
-        print('\nEncoding successful [%s]' % code_name)
+    if not (tx_buffer[0:(K-1)] == rx_buffer[0:(K-1)]).all():
+        print('\nFalse: ', code_name, np.asarray(np.where(tx_buffer[0:(K-1)] != rx_buffer[0:(K-1)])))
+#     else:
+#         print('\nEncoding successful [%s]' % code_name)
         
 def serialise_data(data):
-    pad = 4
-    hard_data = data[::pad]
+    hard_data = data
 
     hard_binary = ''
     for hd in hard_data:
@@ -218,10 +227,6 @@ def add_noise(signal, snr_db, plot=False):
     snr = 10**(snr_db/10) # SNR ratio
     var_signal = np.var(signal) # power
     var_noise = var_signal / snr
-    print('\nDesired SNR: %d dB' % snr_db)
-    print('Var Signal: ', var_signal)
-    print('Var Noise: ' ,var_noise)
-    print('SNR (ratio): ', var_signal/var_noise)
 
     # Generate noise
     noise_len = len(signal)
@@ -236,9 +241,14 @@ def add_noise(signal, snr_db, plot=False):
     # Measure SNR to verify
     power_signal = 10*np.log10(np.var(signal))
     power_noise = 10*np.log10(np.mean(np.abs(signal - signal_with_noise)**2))
-    print('Measured SNR: ', power_signal - power_noise)
     
     if plot:
+        print('\nDesired SNR: %d dB' % snr_db)
+        print('Var Signal: ', var_signal)
+        print('Var Noise: ' ,var_noise)
+        print('SNR (ratio): ', var_signal/var_noise)
+        print('Measured SNR: ', power_signal - power_noise)
+        
         # Plot signal with noise
         x = [n.real for n in signal_with_noise]
         y = [n.imag for n in signal_with_noise]   
@@ -313,3 +323,14 @@ def format_llrs(llrs):
     for llr in llrs:
         llrs_formatted.append(format_llr(llr))
     return llrs_formatted
+
+def calculate_ber(tx, rx):
+    tx_bits = np.asarray(list(serialise_data(tx)))
+    rx_bits = np.asarray(list(serialise_data(rx)))
+
+    compare = tx_bits == rx_bits
+    error_bits = (compare == False).sum()
+
+    ber = error_bits / len(tx_bits)
+
+    return ber
