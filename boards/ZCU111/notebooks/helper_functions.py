@@ -72,6 +72,43 @@ def create_ctrl_buffer():
     ctrl_buffer = allocate(shape=(1,), dtype=np.uint32)
     return ctrl_buffer
 
+def create_ctrl_reg(ctrl_params_dict, readout=False):
+    ctrl_params = {'id' : 0, 
+                    'max_iterations' : 0,
+                    'term_on_no_change' : 0,
+                    'term_on_pass' : 0, 
+                    'include_parity_op' : 0,
+                    'hard_op' : 0,
+                    'code' : 0}
+
+    for key in ctrl_params_dict:
+        ctrl_params[key] = ctrl_params_dict[key]
+    
+    id = '{0:08b}'.format(ctrl_params['id'])                               # (31:24) uint8
+    max_iterations = '{0:06b}'.format(ctrl_params['max_iterations'])       # (23:18) uint6
+    term_on_no_change = '{0:01b}'.format(ctrl_params['term_on_no_change']) # (17:17) bit1
+    term_on_pass = '{0:01b}'.format(ctrl_params['term_on_pass'])           # (16:16) bit1
+    include_parity_op = '{0:01b}'.format(ctrl_params['include_parity_op']) # (15:15) bit1
+    hard_op = '{0:01b}'.format(ctrl_params['hard_op'])                     # (14:14) bit1
+    reserved = '{0:07b}'.format(0)                                         # (13:7) uint7
+    code = '{0:07b}'.format(ctrl_params['code'])                           # (6:0) uint7
+    
+    if readout:
+        print('\nControl\n-------')
+        print('ID: ', int(id,2))
+        print('Max Iter: ', int(max_iterations,2))
+        print('Term No Change: ', int(term_on_no_change,2))
+        print('Term Pass: ', int(term_on_pass,2))
+        print('Parity Pass: ', int(include_parity_op,2))
+        print('Hard OP: ', int(hard_op,2))
+        print('Code: ', int(code,2))
+    
+    ctrl = id + max_iterations + term_on_no_change + term_on_pass \
+    + include_parity_op + hard_op + reserved + code
+    
+    ctrl_buffer = (int(ctrl,2))
+    return ctrl_buffer
+
 def set_ctrl_reg(dma_ctrl, ctrl_buffer, ctrl_params_dict, readout=False):
     ctrl_params = {'id' : 0, 
                     'max_iterations' : 0,
