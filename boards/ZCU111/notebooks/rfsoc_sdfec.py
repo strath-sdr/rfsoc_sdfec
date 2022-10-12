@@ -1,4 +1,6 @@
 from pynq import DefaultIP
+import asyncio
+import threading
 import warnings
 import math
 
@@ -6,7 +8,7 @@ import math
 def _create_mmio_property(name, addr, s, w, f):
     def _get(self):
         v = self.read(addr)/(1<<f)
-        if int(v/(1<<(32-f-1))):
+        if s and int(v/(1<<(32-f-1))):
              return v - pow(2,32-f)
         else:
              return v
@@ -90,14 +92,16 @@ class BitErrorRate(DefaultIP):
         else:
             return self.bit_error / self.bit_count
         
-    bindto = ['strathsdr.org:rfsoc_sdfec:ber:1.0']
+    
+    bindto = ['strathsdr.org:rfsoc_sdfec:ber:1.1']
 
 # LUT of property addresses for our data-driven properties
 _ber_props = [
     ("bit_error",    int('100',16),0,32,0),
     ("bit_count",    int('104',16),0,32,0),
     ("fifo_num",    int('108',16),0,32,0),
-    ("bit_count_reset",    int('10C',16),0,32,0)
+    ("bit_count_reset",    int('10C',16),0,32,0),
+    ("length", int('110',16),0,32,0)
 ]
 
 # Generate getters and setters based on _data_inspector_props
@@ -172,11 +176,15 @@ for (name, addr, s, w, f) in _fec_ctrl_props:
 
 class SoftDemodulation(DefaultIP):
     def __init__(self, description):
-        super().__init__(description=description)
+        super().__init__(description=description)  
         
+    def mag_reset(self):
+        self.llr_mag_reset = 1
+        self.llr_mag_reset = 0
+    
     def set_scaling(self, variance, scale):
-        sf = scale * 7.75
-        llr_scale = (1/variance) * (7.75/sf)
+#         sf = scale * 7.75
+        llr_scale = (1/variance) * scale
         self.llr_scale = llr_scale
         
     bindto = ['strathsdr.org:rfsoc_sdfec:soft_demodulation:1.0']
@@ -191,5 +199,3 @@ _soft_demodulation_props = [
 # Generate getters and setters based on _data_inspector_props
 for (name, addr, s, w, f) in _soft_demodulation_props:
     setattr(SoftDemodulation, name, _create_mmio_property(name, addr, s, w, f))
-    
-    

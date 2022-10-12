@@ -1,6 +1,6 @@
 %% Simulation
 fs = 20e6;
-n_blocks = 10;
+n_blocks = 1000;
 
 %% LDPC Code Parameters
 k = 80;
@@ -43,7 +43,7 @@ aximm_load_dec = 1;
 
 %% BER
 aximm_bit_count_reset = 0;
+aximm_length = k * n_blocks;
 
 
-
-T = ((K*n_blocks))/fs;
+T = ((K*n_blocks))/fs + 70/fs;
