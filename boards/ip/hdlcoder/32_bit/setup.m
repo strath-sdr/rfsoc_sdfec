@@ -48,4 +48,4 @@ aximm_bit_count_reset = 0;
 aximm_length = k * n_blocks;
 
 
-T = ((K*n_blocks))/fs %+ 70/fs;
+T = ((K*n_blocks))/fs + 70/fs;
