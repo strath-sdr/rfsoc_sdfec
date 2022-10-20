@@ -1,6 +1,6 @@
 %% Simulation
 fs = 160e6;
-n_blocks = 10;
+n_blocks = 40 ;
 
 %% LDPC Code Parameters
 k = 80;
@@ -11,6 +11,7 @@ n = 160;
 aximm_enable = 1;
 aximm_bits = n_blocks * k;
 aximm_reset = 0;
+generator_polynomial = '''z^13 + z^12 + z^11 + z^8 + 1''';
 
 %% Encoder Ctrl
 aximm_ctrl_word_enc = 0;
