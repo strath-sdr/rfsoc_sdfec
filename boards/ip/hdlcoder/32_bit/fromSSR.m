@@ -1,10 +1,7 @@
-ssr = 16;
-w = 3;
-
 top_block = gcb;
 block_names = find_system(top_block, 'LookUnderMasks','on', 'SearchDepth','1');
 
-in_block = sprintf('%s/data_srr', top_block);
+in_block = sprintf('%s/data_ssr', top_block);
 out_block = sprintf('%s/data_wide', top_block);
 
 keep_blocks = {top_block, in_block, out_block};
@@ -16,41 +13,39 @@ for i = 1:length(block_names)
 end
 delete_line(find_system(top_block,'LookUnderMasks', 'all','SearchDepth', '1', 'FindAll','on','type','line'));
 
-% % Add Bit Slice Blocks
-% pos = get_param(bit_slice, 'position');
-% set_param(bit_slice, 'lidx', num2str(w-1));
-% set_param(bit_slice, 'ridx', num2str(0));
-% for slice = 2:ssr
-%     new_block = sprintf('%s%d', bit_slice(1:end-1), (slice-1));
-%     add_block(bit_slice, new_block);
-%     new_pos = pos + ([0 60 0 60] * (slice-1));
-%     set_param(new_block, 'position', new_pos);
-%     set_param(new_block, 'lidx', num2str(slice*w-1));
-%     set_param(new_block, 'ridx', num2str((slice-1)*w));
-% end
+% Add Bit Concat Block
+concat_block = sprintf('%s/bit concat', top_block);
+add_block('hdlsllib/Logic and Bit Operations/Bit Concat', concat_block);
+set_param(concat_block, 'numInputs', num2str(ssr));
 
-% Add the De-Mux
-mux_block = sprintf('%s/demux', top_block);
-add_block('simulink/Signal Routing/Demux', mux_block);
-set_param(mux_block, 'Outputs', num2str(ssr));
-mux_position = new_pos + [175 0 120 0];
-mux_position(2) = pos(2);
-set_param(mux_block, 'position', mux_position);
+% Add the Demux
+demux_block = sprintf('%s/demux', top_block);
+add_block('simulink/Signal Routing/Demux', demux_block);
+set_param(demux_block, 'Outputs', num2str(ssr));
 
-% Reposition Input and Outputs
+% Reposition Demux and Bit Concat
 out_position = get_param(out_block, 'position');
-height = out_position(4) - out_position(2);
-width = out_position(3) - out_position(1);
-middle_h = (mux_position(4) - mux_position(2))/2 + mux_position(2);
-out_position = [mux_position(1) + 175, middle_h - height/2, mux_position(1) + 175 + width, middle_h + height/2];
-set_param(out_block, 'position', out_position);
+middle_h = (out_position(4) - out_position(2))/2 + out_position(2);
 
-in_position = [mux_position(1) - 300, middle_h - height/2, mux_position(1) - 300 + width, middle_h + height/2];
-set_param(in_block, 'position', in_position);
+concat_pos = out_position - [220 0 200 0];
+concat_pos(2) = middle_h - (24 * ssr);
+concat_pos(4) = middle_h + (24 * ssr);
+set_param(concat_block, 'position', concat_pos);
+
+demux_pos = out_position - [400 0 420 0];
+demux_pos(2) = middle_h - (24 * ssr);
+demux_pos(4) = middle_h + (24 * ssr);
+set_param(demux_block, 'position', demux_pos);
 
 % Connect Ports
-for slice = 1:ssr
-    add_line(top_block,'data_wide/1',sprintf('Bit Slice %d/1',slice-1));
-    add_line(top_block,sprintf('Bit Slice %d/1',(slice-1)),sprintf('mux/%d', slice));
+if strcmp(order, 'MSB-First')
+    for s = 1:ssr
+        add_line(top_block, sprintf('demux/%d',s),sprintf('bit concat/%d',s));
+    end
+elseif strcmp(order, 'LSB-First')
+    for s = 1:ssr
+        add_line(top_block, sprintf('demux/%d',s),sprintf('bit concat/%d',ssr-(s-1)));
+    end
 end
-add_line(top_block,'mux/1','data_ssr/1');
+add_line(top_block,'data_ssr/1', 'demux/1');
+add_line(top_block,'bit concat/1', 'data_wide/1');

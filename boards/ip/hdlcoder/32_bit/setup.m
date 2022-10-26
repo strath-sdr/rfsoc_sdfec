@@ -1,6 +1,6 @@
 %% Simulation
 fs = 160e6;
-n_blocks = 1;
+n_blocks = 20;
 
 %% LDPC Code Parameters
 k = 80;
@@ -24,7 +24,7 @@ parity_sparse = sparse(parity);
 
 %% AWGN Channel
 P_avg = 10;
-snr = 40;
+snr = 10;
 noise_var = P_avg / 10^(snr/10);
 
 aximm_noise_std = sqrt(noise_var);
@@ -82,4 +82,4 @@ aximm_bit_count_reset = 0;
 aximm_length = k * n_blocks;
 
 
-T = ((K*n_blocks))/fs + 70/fs;
+T = (((k/32)*n_blocks))/fs + 20/fs;

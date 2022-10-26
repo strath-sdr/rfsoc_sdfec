@@ -34,9 +34,15 @@ end
 mux_block = sprintf('%s/mux', top_block);
 add_block('simulink/Signal Routing/Mux', mux_block);
 set_param(mux_block, 'Inputs', num2str(ssr));
-mux_position = new_pos + [175 0 120 0];
+mux_position = new_pos + [125 0 70 0];
 mux_position(2) = pos(2);
 set_param(mux_block, 'position', mux_position);
+
+% Add Reshape
+rshp_block = sprintf('%s/reshape', top_block);
+add_block('simulink/Math Operations/Reshape', rshp_block);
+set_param(rshp_block, 'OutputDimensionality', 'Row vector (2-D)');
+rshp_position = new_pos + [180 0 180 0];
 
 % Reposition Input and Outputs
 out_position = get_param(out_block, 'position');
@@ -49,9 +55,14 @@ set_param(out_block, 'position', out_position);
 in_position = [mux_position(1) - 300, middle_h - height/2, mux_position(1) - 300 + width, middle_h + height/2];
 set_param(in_block, 'position', in_position);
 
+rshp_position(2) = middle_h - 25;
+rshp_position(4) = middle_h + 25;
+set_param(rshp_block, 'position', rshp_position);
+
 % Connect Ports
 for slice = 1:ssr
     add_line(top_block,'data_wide/1',sprintf('Bit Slice %d/1',slice-1));
     add_line(top_block,sprintf('Bit Slice %d/1',(slice-1)),sprintf('mux/%d', slice));
 end
-add_line(top_block,'mux/1','data_ssr/1');
+add_line(top_block,'mux/1','reshape/1');
+add_line(top_block,'reshape/1','data_ssr/1');
