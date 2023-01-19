@@ -3,6 +3,7 @@ __organisation__ = "The Univeristy of Strathclyde"
 __support__ = "https://github.com/strath-sdr/rfsoc_sdfec"
 
 from pynq import Overlay
+import os
 
 class SdfecOverlay(Overlay):
     
