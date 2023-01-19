@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as matches
 from matplotlib.colors import ListedColormap
+from IPython.display import set_matplotlib_formats
+set_matplotlib_formats('svg')
 
 def plot_parity_check_matrix(title,H,p=False):
     n = len(H[0])
