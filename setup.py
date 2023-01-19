@@ -20,13 +20,19 @@ def check_env():
 
 # copy overlays to python package
 def copy_overlays():
-    src_ol_dir = os.path.join(repo_board_folder, 'bitstream')
+    src_ol_dir = os.path.join(repo_board_folder, package_name, 'bitstream')
+    dst_ol_dir = os.path.join(package_name, 'bitstream')
+    copy_tree(src_ol_dir, dst_ol_dir)
+    data_files.extend(
+        [os.path.join("..", dst_ol_dir, f) for f in os.listdir(dst_ol_dir)])
+    src_ol_dir = os.path.join(repo_board_folder, ''.join([package_name, '_hw']), 'bitstream')
     dst_ol_dir = os.path.join(package_name, 'bitstream')
     copy_tree(src_ol_dir, dst_ol_dir)
     data_files.extend(
         [os.path.join("..", dst_ol_dir, f) for f in os.listdir(dst_ol_dir)])
 
 check_env()
+copy_overlays()
 
 setup(
     name=package_name,
