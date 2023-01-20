@@ -1,3 +1,8 @@
+# Ignore Other
+*.htm
+.ipynb_checkpoints
+.idea
+
 # Ignore Logs
 *.log
 
@@ -9,10 +14,13 @@
 *\hdl_prj
 *\slprj
 *\wavedata
+*\netlist
 
 # Ignore Vivado Files
 *.jou
 *vivado.txt
+*vivado.jou
+*vivado.log
 
 # Ignore ./rfstrath/rfstrath/
-**/rfstrath/rfstrath
+**/block_design
