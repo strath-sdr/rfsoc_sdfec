@@ -1,42 +1,45 @@
-<img src="https://www.strath.ac.uk/media/1newwebsite/webteam/logos/xUoS_Logo_Horizontal.png.pagespeed.ic.M6gv_BmDx1.png" width="350">
+<img src="strathsdr_banner.png" width="100%">
 
-# \<Full Repository Name\>
-
-## Introduction
-Add a brief introduction that describes the repository and any associated work i.e. papers, other datasets.
-
-<Add a .gif demonstrating a part of the work.>
+# StrathSDR RFSoC SD-FEC
+This repository features an RFSoC SD-FEC design that is compatible with [PYNQ image v2.7](https://github.com/Xilinx/PYNQ/releases) for the ZCU111, RFSoC2x2, and RFSoC4x2 development board.
 
 ## Quick Start
-This repository is only compatible with [PYNQ images v2.6 and greater](https://github.com/Xilinx/PYNQ/releases) for the [ZCU111](https://www.xilinx.com/products/boards-and-kits/zcu111.html) and the [RFSoC2x2]().
+Follow the instructions below to install the Python package now. **You will need to give your board access to the internet**.
+* Power on your RFSoC development board with an SD Card containing a fresh PYNQ v2.7 image.
+* Navigate to Jupyter Labs by opening a browser (preferably Chrome) and connecting to `http://<board_ip_address>:9090/lab`.
+* We need to open a terminal in Jupyter Lab. Firstly, open a launcher window as shown in the figure below:
 
-Connect to the board with **Jupyter Lab** in a browser (not Jupyter Notebook) by using a web browser `https://<IP address>:9090/lab`.
+<p align="center">
+  <img src="./open_jupyter_launcher.jpg" width="50%" height="50%" />
+</p>
 
-Open a terminal in Jupyter Lab and run the following command:
+* Now open a terminal in Jupyter as illustrated below:
+
+<p align="center">
+  <img src="./open_terminal_window.jpg" width="50%" height="50%" />
+</p>
+
+Run the code below in the jupyter terminal to install the Python package.
+
 ```sh
-pip3 install git+https://github.com/strath-sdr/RFSoC-PYNQ-Template
+pip3 install git+https://github.com/strath-sdr/rfsoc_sdfec
 ```
 
-The notebook should now be available in the `rfstrath` folder in your Jupyter Workspace.
-It is important that you use the Chrome web browser if possible as rendering performance is important.
-
-## ZCU111 Setup
-Describe the setup for the ZCU111.
-
-## RFSoC2x2 Setup
-Describe the setup for the RFSoC2x2.
+This repository currently has no Jupyter notebooks. See https://github.com/strath-sdr/RFSoC-Book for compatible notebooks.
 
 ## Using the Project Files
 The following software is required to use the project files in this repository.
-- Vivado Design Suite 2020.1
+- Vivado Design Suite 2020.2
 - System Generator for DSP
-- MATLAB 2020a
+- MATLAB R2020a
 
 ### Vivado
-This project can be built with Vivado from the command line. Open Vivado 2020.1 and execute the following into the tcl console:
+This project can be built with Vivado from the command line. Open Vivado 2020.2 and execute the following into the tcl console:
 ```sh
-cd /<repository-location>/StrathSDR-RFSoC-Template/boards/<board-name>/
-make project
+cd /<repository-location>/boards/<board-name>/strath_sdfec/
+```
+Now that we have moved into the correct directory, make the Vivado project by running the make commands below sequentially.
+```sh
 make block_design
 make bitstream
 ```
@@ -46,5 +49,5 @@ Alternatively, you can run the entire project build by executing the following i
 make all
 ```
 
-## License
-[BSD 3-Clause](/LICENSE)
+## License 
+[BSD 3-Clause](../../blob/master/LICENSE)
