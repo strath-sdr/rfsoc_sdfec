@@ -3,9 +3,12 @@ from distutils.dir_util import copy_tree
 from setuptools import find_packages, setup
 
 # global variables
-board = os.environ['BOARD']
-repo_board_folder = f'boards/{board}'
-board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
+if 'BOARD' in os.environ:
+    board = os.environ['BOARD']
+    repo_board_folder = f'boards/{board}'
+    board_notebooks_dir = os.environ['PYNQ_JUPYTER_NOTEBOOKS']
+else:
+    board = None
 package_name = 'strath_sdfec'
 
 data_files = []
