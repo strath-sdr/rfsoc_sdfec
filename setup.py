@@ -29,9 +29,6 @@ if board in ['RFSoC2x2', 'RFSoC4x2', 'ZCU111']:
 setup(
     name=package_name,
     version='1.0.1',
-    install_requires=[
-        'pynq==2.7',
-    ],
     author="Lewis McLaughlin",
     packages=find_packages(),
     package_data={
