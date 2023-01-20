@@ -10,14 +10,6 @@ package_name = 'strath_sdfec'
 
 data_files = []
 
-# check whether board is supported
-def check_env():
-    if not os.path.isdir(repo_board_folder):
-        raise ValueError("Board {} is not supported.".format(board))
-    if not os.path.isdir(board_notebooks_dir):
-        raise ValueError(
-            "Directory {} does not exist.".format(board_notebooks_dir))
-
 # copy overlays to python package
 def copy_overlays():
     src_ol_dir = os.path.join(repo_board_folder, package_name, 'bitstream')
@@ -31,12 +23,12 @@ def copy_overlays():
     data_files.extend(
         [os.path.join("..", dst_ol_dir, f) for f in os.listdir(dst_ol_dir)])
 
-check_env()
-copy_overlays()
+if board in ['RFSoC2x2', 'RFSoC4x2', 'ZCU111']:
+    copy_overlays()
 
 setup(
     name=package_name,
-    version='1.0.0',
+    version='1.0.1',
     install_requires=[
         'pynq==2.7',
     ],
