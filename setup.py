@@ -58,7 +58,7 @@ else:
     pynq_version = ""
 
 package_installer(name = "strath_sdfec",
-                  version = "1.0.2",
+                  version = "1.1.0",
                   description  = "RFSoC SD-FEC Driver and Design @ StrathSDR.",
                   author = "Lewis Davin McLaughlin",
                   email = "lewis.mclaughlin@strath.ac.uk",
