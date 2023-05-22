@@ -7,12 +7,12 @@ open_bd_design ./${overlay_name}/${overlay_name}.srcs/sources_1/bd/${design_name
 
 # Add top wrapper and xdc files
 make_wrapper -files [get_files ./${overlay_name}/${overlay_name}.srcs/sources_1/bd/${design_name}/${design_name}.bd] -top
-add_files -norecurse ./${overlay_name}/${overlay_name}.gen/sources_1/bd/${design_name}/hdl/${design_name}_wrapper.vhd
+add_files -norecurse ./${overlay_name}/${overlay_name}.srcs/sources_1/bd/${design_name}/hdl/${design_name}_wrapper.vhd
 set_property top ${design_name}_wrapper [current_fileset]
 update_compile_order -fileset sources_1
 
 # Call implement
-launch_runs impl_1 -to_step write_bitstream -jobs 2
+launch_runs impl_1 -to_step write_bitstream -jobs 8
 wait_on_run impl_1
 
 # Move and rename bitstream to final location

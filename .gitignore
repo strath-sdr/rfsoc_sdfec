@@ -24,3 +24,5 @@
 
 # Ignore ./rfstrath/rfstrath/
 **/block_design
+**/bitstream
+rfsoc_sdfec.tar.gz
