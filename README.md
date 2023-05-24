@@ -26,7 +26,7 @@ Follow the instructions below to install the Python package now. **You will need
 Run the code below in the jupyter terminal to install the Python package.
 
 ```sh
-pip3 install https://github.com/strath-sdr/rfsoc_sdfec/archive/refs/tags/v1.1.0.tar.gz
+pip3 install https://github.com/strath-sdr/rfsoc_sdfec/releases/download/v1.1.0/rfsoc_sdfec.tar.gz
 ```
 
 This repository currently has no Jupyter notebooks. See https://github.com/strath-sdr/RFSoC-Book for compatible notebooks.
