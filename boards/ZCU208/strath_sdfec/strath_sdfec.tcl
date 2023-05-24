@@ -1,6 +1,6 @@
 
 ################################################################
-# This is a generated script based on design: block_design
+# This is a generated script based on design: strath_sdfec
 #
 # Though there are limitations about the generated script,
 # the main purpose of this utility is to make learning
@@ -35,7 +35,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 ################################################################
 
 # To test this script, run the following commands from Vivado Tcl console:
-# source block_design_script.tcl
+# source strath_sdfec_script.tcl
 
 # If there is no project opened, this script will create a
 # project, but make sure you do not have an existing project
@@ -2147,8 +2147,9 @@ proc create_root_design { parentCell } {
   # Create port connections
   connect_bd_net -net M00_ACLK_1 [get_bd_pins axi_interconnect_ps_master/ACLK] [get_bd_pins axi_interconnect_ps_master/S00_ACLK] [get_bd_pins axi_interconnect_ps_slave/ACLK] [get_bd_pins axi_interconnect_ps_slave/M00_ACLK] [get_bd_pins rst_pl_clk0/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_pins zynq_ultra_ps_e_0/saxihp0_fpd_aclk]
   connect_bd_net -net axi_intc_0_irq [get_bd_pins axi_intc_0/irq] [get_bd_pins zynq_ultra_ps_e_0/pl_ps_irq0]
-  connect_bd_net -net clk_wiz_0_clk_667M [get_bd_pins clk_wiz/clk_out1] [get_bd_pins ldpc_decoder/clk_667M] [get_bd_pins ldpc_encoder/clk_667M] [get_bd_pins rst_clk_wiz_50M/dcm_locked]
+  connect_bd_net -net clk_wiz_0_clk_667M [get_bd_pins clk_wiz/clk_out1] [get_bd_pins ldpc_decoder/clk_667M] [get_bd_pins ldpc_encoder/clk_667M]
   connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_pins axi_intc_0/s_axi_aclk] [get_bd_pins axi_interconnect_ps_master/M00_ACLK] [get_bd_pins axi_interconnect_ps_master/M01_ACLK] [get_bd_pins axi_interconnect_ps_master/M02_ACLK] [get_bd_pins axi_interconnect_ps_slave/S00_ACLK] [get_bd_pins axi_interconnect_ps_slave/S01_ACLK] [get_bd_pins clk_wiz/clk_out2] [get_bd_pins ldpc_decoder/clk_50M] [get_bd_pins ldpc_encoder/clk_50M] [get_bd_pins rst_clk_wiz_50M/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_locked [get_bd_pins clk_wiz/locked] [get_bd_pins rst_clk_wiz_50M/dcm_locked]
   connect_bd_net -net interconnect_reset_1 [get_bd_pins ldpc_decoder/interconnect_reset] [get_bd_pins ldpc_encoder/interconnect_reset] [get_bd_pins rst_clk_wiz_50M/interconnect_aresetn]
   connect_bd_net -net ldpc_decoder_dout [get_bd_pins ldpc_decoder/intr] [get_bd_pins xlconcat_intr/In1]
   connect_bd_net -net ldpc_encoder_dout [get_bd_pins ldpc_encoder/intr] [get_bd_pins xlconcat_intr/In0]
