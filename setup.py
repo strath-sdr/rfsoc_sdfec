@@ -14,11 +14,12 @@ class package_installer():
                  pynq_version,
                  board):
         
+        cwd = os.getcwd()
         args = locals()
         for key in args:
             if key != 'self':
                 setattr(self, key, args[key])
-        if os.path.isdir(f'boards/{self.board}/{self.name}'):
+        if os.path.isdir(os.path.join(cwd, 'boards', self.board)):
             self.copy_projects()
         self.run_setup()
         
