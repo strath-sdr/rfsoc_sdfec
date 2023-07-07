@@ -1,6 +1,5 @@
-cd C:/Users/ckb13136/Documents/Git/rfsoc_sdfec_8bit/boards/ip/hdlcoder/book_example/hdl_prj/ipcore/soft_demodulation_v1_5/prj_ip
 open_project ./prj_ip.xpr
-ipx::package_project -root_dir C:/Users/ckb13136/Documents/Git/rfsoc_sdfec_8bit/boards/ip/hdlcoder/book_example/hdl_prj/ipcore/soft_demodulation_v1_5/prj_ip -vendor strathsdr.org -library rfsoc_sdfec -taxonomy /UserIP -force
+ipx::package_project -root_dir {../} -vendor strathsdr.org -library rfsoc_sdfec -taxonomy /UserIP -force
 set_property name {soft_demodulation} [ipx::current_core]
 set_property version {1.5} [ipx::current_core]
 set_property display_name {Soft Demodulation} [ipx::current_core]

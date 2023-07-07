@@ -1,6 +1,5 @@
-cd C:/Users/ckb13136/Documents/Git/rfsoc_sdfec_8bit/boards/ip/hdlcoder/book_example/hdl_prj/ipcore/qam_mapping_v1_3/prj_ip
 open_project ./prj_ip.xpr
-ipx::package_project -root_dir C:/Users/ckb13136/Documents/Git/rfsoc_sdfec_8bit/boards/ip/hdlcoder/book_example/hdl_prj/ipcore/qam_mapping_v1_3/prj_ip -vendor strathsdr.org -library rfsoc_sdfec -taxonomy /UserIP -force
+ipx::package_project -root_dir {../} -vendor strathsdr.org -library rfsoc_sdfec -taxonomy /UserIP -force
 set_property name {qam_mapping} [ipx::current_core]
 set_property version {1.3} [ipx::current_core]
 set_property display_name {Qam Mapping} [ipx::current_core]
