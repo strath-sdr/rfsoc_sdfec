@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>IP Core Generation Report for book_example</title>
+<title>IP Core Generation Report for rfsoc_sdfec_model</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <style type="text/css">
 table {
@@ -44,7 +44,7 @@ thead.reportTableHeader {
 
 </head>
 <body>
-<h2 class="title">IP Core Generation Report for book_example</h2>
+<h2 class="title">IP Core Generation Report for rfsoc_sdfec_model</h2>
 <div>
 <h3 class="sectionHeading">Summary</h3>
 <table>
@@ -94,31 +94,31 @@ thead.reportTableHeader {
 <tr>
 <td>Model
 </td>
-<td class="summaryTableSndColEvenRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example')">book_example</a>
+<td class="summaryTableSndColEvenRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model')">rfsoc_sdfec_model</a>
 </td>
 </tr>
 <tr>
 <td class="distinctCellColor">Model version
 </td>
-<td class="summaryTableSndColOddRow">1.335
+<td class="summaryTableSndColOddRow">7.0
 </td>
 </tr>
 <tr>
 <td>HDL Coder version
 </td>
-<td class="summaryTableSndColEvenRow">3.17
+<td class="summaryTableSndColEvenRow">23.2
 </td>
 </tr>
 <tr>
 <td class="distinctCellColor">IP core generated on
 </td>
-<td class="summaryTableSndColOddRow">16-Jan-2023 15:11:31
+<td class="summaryTableSndColOddRow">07-Jul-2023 12:36:41
 </td>
 </tr>
 <tr>
 <td>IP core generated for
 </td>
-<td class="summaryTableSndColEvenRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37')">QAM Mapping</a>
+<td class="summaryTableSndColEvenRow"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:83')">QAM Mapping</a>
 </td>
 </tr>
 </tbody>
@@ -127,7 +127,7 @@ thead.reportTableHeader {
 <div>
 <h3 class="sectionHeading">Target Interface Configuration</h3>
 You chose the following target interface configuration for 
-<a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example')">book_example</a>
+<a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model')">rfsoc_sdfec_model</a>
 :
 <br/><br/>
 Processor/FPGA synchronization mode: 
@@ -154,25 +154,25 @@ Target platform interface table:
 </thead>
 <tbody>
 <tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:460')">s_axis_tvalid</a>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:323')">aximm_valid</a>
 </td>
 <td>Inport
 </td>
-<td>boolean
+<td>uint32
 </td>
-<td>External Port
+<td>AXI4-Lite
 </td>
-<td>
+<td>x"100"
 </td>
 <td>
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:461')">s_axis_tdata</a>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:324')">s_axis_tvalid</a>
 </td>
 <td class="distinctCellColor">Inport
 </td>
-<td class="distinctCellColor">uint8
+<td class="distinctCellColor">boolean
 </td>
 <td class="distinctCellColor">External Port
 </td>
@@ -182,11 +182,11 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:753')">s_axis_tlast</a>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:325')">s_axis_tdata</a>
 </td>
 <td>Inport
 </td>
-<td>boolean
+<td>uint8
 </td>
 <td>External Port
 </td>
@@ -196,21 +196,21 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:756')">aximm_valid</a>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:326')">s_axis_tlast</a>
 </td>
 <td class="distinctCellColor">Inport
 </td>
-<td class="distinctCellColor">uint32
+<td class="distinctCellColor">boolean
 </td>
-<td class="distinctCellColor">AXI4-Lite
+<td class="distinctCellColor">External Port
 </td>
-<td class="distinctCellColor">x"100"
+<td class="distinctCellColor">
 </td>
 <td class="distinctCellColor">
 </td>
 </tr>
 <tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:516')">m_axis_tvalid</a>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:354')">m_axis_tvalid</a>
 </td>
 <td>Outport
 </td>
@@ -224,7 +224,7 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:517')">m_axis_tdata</a>
+<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:355')">m_axis_tdata</a>
 </td>
 <td class="distinctCellColor">Outport
 </td>
@@ -238,67 +238,11 @@ Target platform interface table:
 </td>
 </tr>
 <tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:745')">s_axis_tready</a>
+<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('rfsoc_sdfec_model:356')">s_axis_tready</a>
 </td>
 <td>Outport
 </td>
 <td>ufix1
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:816')">probe0</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">boolean
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:817')">probe1</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
-</td>
-<td>External Port
-</td>
-<td>
-</td>
-<td>
-</td>
-</tr>
-<tr>
-<td class="distinctCellColor"><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:822')">probe2</a>
-</td>
-<td class="distinctCellColor">Outport
-</td>
-<td class="distinctCellColor">boolean
-</td>
-<td class="distinctCellColor">External Port
-</td>
-<td class="distinctCellColor">
-</td>
-<td class="distinctCellColor">
-</td>
-</tr>
-<tr>
-<td><a class="code2model" id="code2model" href="matlab:Simulink.ID.hilite('book_example:37:823')">probe3</a>
-</td>
-<td>Outport
-</td>
-<td>boolean
 </td>
 <td>External Port
 </td>
@@ -347,7 +291,7 @@ The following AXI4-Lite bus accessible registers were generated for this IP core
 </td>
 <td>0x8
 </td>
-<td>contains unique IP timestamp (yymmddHHMM): 2301161321: 2301161511
+<td>contains unique IP timestamp (yymmddHHMM): 2307071236
 </td>
 </tr>
 <tr>
@@ -409,7 +353,7 @@ This IP Core is generated for the Xilinx Vivado environment. The following steps
 <br/>
 4. In the Vivado project, find the generated IP core in the IP Catalog under category "HDL Coder Generated IP". In you have a Vivado block design open, you can add the generated IP into your block design.
 <br/>
-5. Connect the AXI4_Lite port of the IP core to the embedded processor's AXI master port.
+5. Connect the AXI4-Lite port of the IP core to the embedded processor's AXI master port.
 <br/>
 6. Connect the clock and reset ports of the IP core to the global clock and reset signals.
 <br/>
@@ -435,25 +379,25 @@ Following files are generated under this folder:
 <br/><br/>
 <b>IP core report</b>
 <br/>
-<a href="matlab:web('hdl_prj\ipcore\qam_mapping_v1_3\doc\book_example_ip_core_report.html')">doc\book_example_ip_core_report.html</a>
+<a href="matlab:web('hdl_prj\ipcore\qam_mapping_v1_3\doc\rfsoc_sdfec_model_ip_core_report.html')">doc\rfsoc_sdfec_model_ip_core_report.html</a>
 <br/><br/>
 <b>IP core HDL source files</b>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping_src_QAM16_Generator.vhd')">hdl\vhdl\qam_mapping_src_QAM16_Generator.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping_src_QAM16_Generator.vhd')">hdl\qam_mapping_src_QAM16_Generator.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping_src_QAM_Mapping.vhd')">hdl\vhdl\qam_mapping_src_QAM_Mapping.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping_src_QAM_Mapping.vhd')">hdl\qam_mapping_src_QAM_Mapping.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping_reset_sync.vhd')">hdl\vhdl\qam_mapping_reset_sync.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping_reset_sync.vhd')">hdl\qam_mapping_reset_sync.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping_dut.vhd')">hdl\vhdl\qam_mapping_dut.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping_dut.vhd')">hdl\qam_mapping_dut.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping_addr_decoder.vhd')">hdl\vhdl\qam_mapping_addr_decoder.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping_addr_decoder.vhd')">hdl\qam_mapping_addr_decoder.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping_axi_lite_module.vhd')">hdl\vhdl\qam_mapping_axi_lite_module.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping_axi_lite_module.vhd')">hdl\qam_mapping_axi_lite_module.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping_axi_lite.vhd')">hdl\vhdl\qam_mapping_axi_lite.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping_axi_lite.vhd')">hdl\qam_mapping_axi_lite.vhd</a>
 <br/>
-<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\vhdl\qam_mapping.vhd')">hdl\vhdl\qam_mapping.vhd</a>
+<a href="matlab:edit('hdl_prj\ipcore\qam_mapping_v1_3\hdl\qam_mapping.vhd')">hdl\qam_mapping.vhd</a>
 <br/>
 <br/>
 <b>IP core C header file</b>

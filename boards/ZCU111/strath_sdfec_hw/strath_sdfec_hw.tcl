@@ -129,7 +129,7 @@ xilinx.com:ip:axi_intc:4.1\
 xilinx.com:ip:axis_data_fifo:2.0\
 strathsdr.org:rfsoc_sdfec:ber:1.3\
 xilinx.com:ip:clk_wiz:6.0\
-strathsdr.org:rfsoc_sdfec:Fec_Ctrl:1.2\
+strathsdr.org:rfsoc_sdfec:FEC_Ctrl:1.2\
 strathsdr.org:rfsoc_sdfec:qam_mapping:1.3\
 strathsdr.org:rfsoc_sdfec:Random_Number_Gen:1.0\
 xilinx.com:ip:proc_sys_reset:5.0\
@@ -267,10 +267,10 @@ proc create_root_design { parentCell } {
  ] $clk_wiz_0
 
   # Create instance: fec_ctrl_dec, and set properties
-  set fec_ctrl_dec [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:Fec_Ctrl:1.2 fec_ctrl_dec ]
+  set fec_ctrl_dec [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:FEC_Ctrl:1.2 fec_ctrl_dec ]
 
   # Create instance: fec_ctrl_enc, and set properties
-  set fec_ctrl_enc [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:Fec_Ctrl:1.2 fec_ctrl_enc ]
+  set fec_ctrl_enc [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:FEC_Ctrl:1.2 fec_ctrl_enc ]
 
   # Create instance: qam_mapping, and set properties
   set qam_mapping [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:qam_mapping:1.3 qam_mapping ]
