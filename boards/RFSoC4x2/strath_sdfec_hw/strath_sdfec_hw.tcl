@@ -304,10 +304,10 @@ proc create_root_design { parentCell } {
  ] $clk_wiz_1
 
   # Create instance: fec_ctrl_dec, and set properties
-  set fec_ctrl_dec [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:Fec_Ctrl:1.2 fec_ctrl_dec ]
+  set fec_ctrl_dec [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:FEC_Ctrl:1.2 fec_ctrl_dec ]
 
   # Create instance: fec_ctrl_enc, and set properties
-  set fec_ctrl_enc [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:Fec_Ctrl:1.2 fec_ctrl_enc ]
+  set fec_ctrl_enc [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:FEC_Ctrl:1.2 fec_ctrl_enc ]
 
   # Create instance: qam_mapping, and set properties
   set qam_mapping [ create_bd_cell -type ip -vlnv strathsdr.org:rfsoc_sdfec:qam_mapping:1.3 qam_mapping ]
